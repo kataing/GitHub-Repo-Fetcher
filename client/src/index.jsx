@@ -23,11 +23,26 @@ class App extends React.Component {
     axios
       .post('/repos', { username: term })
       .then(({ data }) => {
-        console.log('this is data', data);
+        console.log('this is gh data', data);
       })
       .catch((err) => {
-        console.log('this is err', err);
+        console.log('this is POST err', err);
       })
+  }
+
+  get() {
+    axios
+      .get('/repos')
+      .then(({ data }) => {
+        console.log('this is db data', data);
+      })
+      .catch((err) => {
+        console.log('this is GET err', err);
+      })
+  }
+
+  componentDidMount() {
+    this.get();
   }
 
   render() {
