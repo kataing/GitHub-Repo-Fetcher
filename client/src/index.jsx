@@ -11,19 +11,30 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
-
   }
 
-  search (term) {
-    console.log(`${term} was searched`);
+  search(term) {
     // TODO
+    console.log(`${term} was searched`);
+    this.post(term);
   }
 
-  render () {
+  post(term) {
+    axios
+      .post('/repos', { username: term })
+      .then(({ data }) => {
+        console.log('this is data', data);
+      })
+      .catch((err) => {
+        console.log('this is err', err);
+      })
+  }
+
+  render() {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos} />
+      <Search onSearch={this.search.bind(this)} />
     </div>)
   }
 }
