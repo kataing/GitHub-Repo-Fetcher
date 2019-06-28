@@ -17,16 +17,23 @@ app.post('/repos', function (req, res) {
   // and get the repo information from the github API, then
   // save the repo information in the database
   github.getReposByUsername(username, (err, { body }) => {
-    db.save(username);
-    res.status(200).send(body);
+    const repos = JSON.parse(body);
+    db.save({ username, repos });
+    res.status(201).send('the client post reached the server!');
   });
-
-  // res.status(201).send('the client post reached the server!');
 });
 
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
+  db.Repo
+    .find({})
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      console.log('Not able to get your data');
+    })
 });
 
 let port = 1128;
