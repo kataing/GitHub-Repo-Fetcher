@@ -22,18 +22,22 @@ class App extends React.Component {
   post(term) {
     axios
       .post('/repos', { username: term })
-      .then(({ data }) => {
-        console.log('this is gh data', data);
+      .then(() => {
+        console.log('Your data has been posted');
+        this.get(term);
       })
       .catch((err) => {
         console.log('this is POST err', err);
       })
   }
 
-  get() {
+  get(term) {
     axios
-      .get('/repos')
+      .get(`/repos/${term}`)
       .then(({ data }) => {
+        this.setState({
+          repos: data
+        })
         console.log('this is db data', data);
       })
       .catch((err) => {
@@ -48,8 +52,8 @@ class App extends React.Component {
   render() {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos} />
       <Search onSearch={this.search.bind(this)} />
+      <RepoList repos={this.state.repos} />
     </div>)
   }
 }
