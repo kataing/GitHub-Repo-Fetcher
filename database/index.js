@@ -4,17 +4,16 @@ mongoose.connect('mongodb://localhost/fetcher');
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
   username: 'String',
-  repos: 'Array'
-  // stargazers_count: 'Number'
+  repo: 'Array',
+  stargazers_count: 'Number'
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = ({ username, repos }) => {
+let save = ({ username, repo, stargazers_count}) => {
   // TODO: Your code here
   // This function should save a repo or repos to the MongoDB
-  console.log('username: ', username, 'repos: ', repos);
-  let result = new Repo({ username, repos });
+  let result = new Repo({ username, repo, stargazers_count });
   result.save((err) => {
     if (err) return console.error(err);
   });

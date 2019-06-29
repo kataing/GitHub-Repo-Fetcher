@@ -18,8 +18,12 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
   github.getReposByUsername(username, (err, { body }) => {
     const repos = JSON.parse(body);
-    db.save({ username, repos });
-    res.status(201).send('the client post reached the server!');
+    for(let i = 0; i < repos.length; i++) {
+      let repo = repos[i];
+      let stargazers_count = repo.stargazers_count;
+      db.save({ username, repo, stargazers_count });
+    }
+    res.status(201).send(repos);
   });
 });
 
@@ -32,7 +36,7 @@ app.get('/repos', function (req, res) {
       res.status(200).send(data);
     })
     .catch((err) => {
-      console.log('Not able to get your data');
+      res.status(404).send('Not able to retreive records');
     })
 });
 
