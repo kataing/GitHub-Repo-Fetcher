@@ -29,11 +29,11 @@ app.post('/repos', function (req, res) {
       let stargazers_count = repo.stargazers_count;
       let html_url = repo.html_url;
       let name = repo.name;
-      // hasDuplicate(username, (check) => {
-        // if (check.username !== username) {
+      hasDuplicate(username, (check) => {
+        if (check.length === 0) {
           db.save(username, html_url, name, stargazers_count);
-        // }
-      // });
+        }
+      });
     }
   })
   res.status(201).send('Searched handle has been stored');
