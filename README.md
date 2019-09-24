@@ -1,2 +1,4 @@
-# fullstack-review
-This is a project I completed as a student at [hackreactor](http://hackreactor.com). This project was worked on with a pair.
+# GitHub Repo Fetcher
+An MVP mini app where users can search for repos by GitHub handle.
+
+![](client/dist/demo.gif)
