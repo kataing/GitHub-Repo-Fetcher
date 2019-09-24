@@ -52,7 +52,7 @@ class App extends React.Component {
   render() {
     return (
       <section>
-        <h1>GitHub Fetcher</h1>
+        <h1>GitHub Repo Fetcher</h1>
         <div className='app-container' >
           <Search onSearch={this.search.bind(this)} />
           <RepoList repos={this.state.repos} />
